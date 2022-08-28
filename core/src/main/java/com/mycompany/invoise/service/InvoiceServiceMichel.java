@@ -2,14 +2,15 @@ package com.mycompany.invoise.service;
 
 import com.mycompany.invoise.entity.Invoice;
 import com.mycompany.invoise.repository.InvoiceRepository;
+import com.mycompany.invoise.repository.InvoiceRepositoryMichel;
 
-public class InvoiceService {
-    private static long lastNumber = 0L;
+public class InvoiceServiceMichel {
+    private static long lastNumber = 112L;
 
-    private InvoiceRepository invoiceRepository = new InvoiceRepository();
+    private InvoiceRepositoryMichel invoiceRepository = new InvoiceRepositoryMichel();
 
     public void createInvoice(Invoice invoice) {
-        invoice.setNumber(String.valueOf(++lastNumber));
+        invoice.setNumber("INV_" + (++lastNumber));
         invoiceRepository.create(invoice);
     }
 }

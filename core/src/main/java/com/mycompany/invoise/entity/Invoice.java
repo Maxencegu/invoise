@@ -1,7 +1,6 @@
 package com.mycompany.invoise.entity;
 
 public class Invoice {
-
     private String number;
     private String customerName;
 

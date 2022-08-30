@@ -12,4 +12,8 @@ public class InvoiceServiceMichel implements InvoiceServiceInterface {
         invoice.setNumber("INV_" + (++lastNumber));
         invoiceRepository.create(invoice);
     }
+
+    public void setInvoiceRepository(InvoiceRepositoryInterface invoiceRepository) {
+        this.invoiceRepository = invoiceRepository;
+    }
 }

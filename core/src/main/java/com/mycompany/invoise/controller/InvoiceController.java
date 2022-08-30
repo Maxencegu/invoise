@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class InvoiceController implements InvoiceControllerInterface {
     private InvoiceServiceInterface invoiceService;
 
+    @Override
     public void createInvoice() {
         System.out.println( "What is the customer name ?" );
         Scanner sc = new Scanner(System.in);
@@ -16,5 +17,10 @@ public class InvoiceController implements InvoiceControllerInterface {
         invoice.setCustomerName(customerName);
 
         invoiceService.createInvoice(invoice);
+    }
+
+    @Override
+    public void setInvoiceService(InvoiceServiceInterface invoiceService) {
+        this.invoiceService = invoiceService;
     }
 }

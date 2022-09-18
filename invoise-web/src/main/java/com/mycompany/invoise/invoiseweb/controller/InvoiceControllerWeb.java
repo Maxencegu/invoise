@@ -6,12 +6,7 @@ import com.mycompany.invoise.core.service.InvoiceServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/invoice")
@@ -20,11 +15,10 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
     private InvoiceServiceInterface invoiceService;
 
     @Override
-    public void createInvoice() {
-        Invoice invoice = new Invoice();
-        invoice.setCustomerName("Tesla");
-
+    @PostMapping()
+    public String createInvoice(@ModelAttribute Invoice invoice) {
         invoiceService.createInvoice(invoice);
+        return "invoice-created";
     }
 
     @Override
@@ -32,17 +26,22 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
         this.invoiceService = invoiceService;
     }
 
-    @RequestMapping("/home")
+    @GetMapping("/home")
     public String displayHome(Model model) {
         System.out.println("La méthode displayHome a bien été invoquée.");
         model.addAttribute("invoices", invoiceService.getInvoices());
         return "invoice-home";
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public String displayInvoice(@PathVariable("id") String number, Model model) {
         System.out.println("La méthode displayInvoice a bien été invoquée.");
         model.addAttribute("invoice", invoiceService.getInvoiceByNumber(number));
         return "invoice-details";
+    }
+
+    @GetMapping("/create-form")
+    public String displayInvoiceCreateForm(@ModelAttribute Invoice invoice) {
+        return "invoice-create-form";
     }
 }
